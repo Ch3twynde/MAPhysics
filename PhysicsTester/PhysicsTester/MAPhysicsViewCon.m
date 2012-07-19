@@ -13,25 +13,45 @@ extern const float kAccelerationConstant;
 extern const float kSpeedConstant; 
 extern const float kMaxSpeedConstant; 
 
+typedef struct Collision {
+
+    double obj1_mass;
+    double obj1_angle;
+    double obj1_speed;
+    float  obj1_elasticity;
+
+    double obj2_mass;
+    double obj2_angle;
+    double obj2_speed;
+    float  obj2_elasticity;
+
+
+} Collision;
+
 
 @interface MAPhysicsViewCon () {
 
-NSDate *touchTimeStart;
-NSDate *touchTimeEnd;
+        
+        
+    NSDate *touchTimeStart;
+    NSDate *touchTimeEnd;
 
+    
+    double angle;
+    double speed;
+    double acceleration;
+    double maxAcceleration;
+    double gravity;
+    int moving;
+    int falling;
+    float elasticity;
 
-double angle;
-double speed;
-double acceleration;
-double maxAcceleration;
-double gravity;
-int moving;
-int falling;
-float elasticity;
-
-float ground;
-
-int fingerDown;
+    float ground;
+    CGRect groundRect;
+    int grounded;
+    
+    CGRect screen;
+    int fingerDown, wasFingerDown;
 
 
 }
@@ -41,6 +61,8 @@ int fingerDown;
 
 
 @end
+
+
 
 
 const float kAccelerationConstant = 0.0125;
@@ -59,6 +81,7 @@ const float kMaxSpeedConstant = 12.5;
         
         object = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Rapture_Records_logo"]];
         object.frame = CGRectMake(20, 400, 100, 100);
+        
         [self.view addSubview:object];
         
         [self setWorldVars];
@@ -75,6 +98,7 @@ const float kMaxSpeedConstant = 12.5;
     touchTimeStart = [NSDate date];
     acceleration = kAccelerationConstant;
     fingerDown = true;
+    wasFingerDown = false;
     falling = false;
 }
 
@@ -83,6 +107,7 @@ const float kMaxSpeedConstant = 12.5;
     
     touchTimeEnd = [NSDate date];
     fingerDown = false;
+    wasFingerDown = true;
 }
 
 - (void)setWorldVars {
@@ -94,8 +119,12 @@ const float kMaxSpeedConstant = 12.5;
     gravity = 4;
     moving = true;
     falling = false;
+    screen = [[UIScreen mainScreen] bounds];
     ground = self.view.frame.origin.y + self.view.frame.size.height;
+    groundRect = CGRectMake(0, ground-20, screen.size.width, 20);
+    grounded = false;
     elasticity = 2.5;
+    
 }
 
 - (void)setVarLabels {
@@ -122,8 +151,16 @@ const float kMaxSpeedConstant = 12.5;
 }
 
 
+
+
+
+
+#pragma mark -
+#pragma Update
 - (void)update {
     
+    
+    // Just for testing the other update method
     [self substituteUpdate];
     return;
     
@@ -194,40 +231,85 @@ const float kMaxSpeedConstant = 12.5;
 
 - (void)substituteUpdate {
     
+    
+    
     double scale_x;
     double scale_y;
     double velocity_x = 0;
     double velocity_y = 0;
 
     
-        
-        scale_x = cos(DegreesToRadians(angle));
-        scale_y = sin(DegreesToRadians(angle));
-        
-        velocity_x = speed * scale_x;
-        velocity_y = speed * scale_y + gravity;
-        
-        object.frame = CGRectMake(object.frame.origin.x + velocity_x,
-                                  object.frame.origin.y + velocity_y,
-                                  object.frame.size.width,
-                                  object.frame.size.height);
-        
+    scale_x = cos(DegreesToRadians(angle));
+    scale_y = sin(DegreesToRadians(angle));
+    
+    velocity_x = speed * scale_x;
+    velocity_y = speed * scale_y + gravity;
+    
+    // Check for ground collision
+    bool isGrounded = [self collisionTest];
+
+    
+    // Upward user forces
     if ( fingerDown ) { 
         
         if ( speed < kMaxSpeedConstant ) {
             speed += acceleration; 
         }
         
-    } else {
+    } else if ( !isGrounded ) {
+        
         if ( speed > kSpeedConstant ) {
-            speed -= acceleration;
+            speed -= acceleration; 
         }
+
+    }
+   
+    if ( isGrounded ) {
+        if ( velocity_x > 0 ) velocity_x = 0;
+        if ( velocity_y > 0 ) velocity_y = 0;
     }
 
+        
+    object.frame = CGRectMake(object.frame.origin.x + velocity_x,
+                              object.frame.origin.y + velocity_y,
+                              object.frame.size.width,
+                              object.frame.size.height);
+        
+    
     velocityYLabel.text = [NSString stringWithFormat:@"velocity_y: %0.2f", velocity_y];
+    [velocityYLabel sizeToFit];
     accelerationLabel.text = [NSString stringWithFormat:@"acceleration: %0.2f", acceleration];
     speedLabel.text = [NSString stringWithFormat:@"speed: %0.2f", speed];
 
+    [self collisionTest];
 }
+
+
+- (int)collisionTest {
+    
+    // Another detection style
+    float dx=object.frame.origin.x - groundRect.origin.x;
+    float dy=object.frame.origin.y - groundRect.origin.y;
+    float distance = dx+dy;
+
+    if ( pow(distance, 2) < object.frame.size.height ) {
+        return true;
+    }
+    
+    //sqrt( (dx*dx) + (dy*dy) );
+    
+    
+    // One detection style
+    if (CGRectIntersectsRect(object.frame, groundRect) || 
+        CGRectContainsRect(object.frame, groundRect) || 
+        (CGRectContainsRect(groundRect, object.frame) ) ) {
+        // they either overlap or one is inside the other
+        return true;
+    }    
+    
+    return false;
+}
+
+
 
 @end

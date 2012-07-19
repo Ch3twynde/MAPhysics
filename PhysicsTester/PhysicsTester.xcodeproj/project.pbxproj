@@ -1,0 +1,461 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		626D493D15B7AD80005D5602 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626D493C15B7AD80005D5602 /* UIKit.framework */; };
+		626D493F15B7AD80005D5602 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626D493E15B7AD80005D5602 /* Foundation.framework */; };
+		626D494115B7AD80005D5602 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626D494015B7AD80005D5602 /* CoreGraphics.framework */; };
+		626D494315B7AD80005D5602 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626D494215B7AD80005D5602 /* CoreData.framework */; };
+		626D494915B7AD80005D5602 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 626D494715B7AD80005D5602 /* InfoPlist.strings */; };
+		626D494B15B7AD80005D5602 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 626D494A15B7AD80005D5602 /* main.m */; };
+		626D494F15B7AD80005D5602 /* MAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 626D494E15B7AD80005D5602 /* MAAppDelegate.m */; };
+		626D495215B7AD80005D5602 /* PhysicsTester.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 626D495015B7AD80005D5602 /* PhysicsTester.xcdatamodeld */; };
+		626D495A15B7AD80005D5602 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626D495915B7AD80005D5602 /* SenTestingKit.framework */; };
+		626D495B15B7AD80005D5602 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626D493C15B7AD80005D5602 /* UIKit.framework */; };
+		626D495C15B7AD80005D5602 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626D493E15B7AD80005D5602 /* Foundation.framework */; };
+		626D495D15B7AD80005D5602 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626D494215B7AD80005D5602 /* CoreData.framework */; };
+		626D496515B7AD80005D5602 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 626D496315B7AD80005D5602 /* InfoPlist.strings */; };
+		626D496815B7AD80005D5602 /* PhysicsTesterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 626D496715B7AD80005D5602 /* PhysicsTesterTests.m */; };
+		626D497215B7ADE1005D5602 /* Rapture_Records_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 626D497115B7ADE1005D5602 /* Rapture_Records_logo.png */; };
+		626D497415B7AF49005D5602 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626D497315B7AF49005D5602 /* QuartzCore.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		626D495E15B7AD80005D5602 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 626D492F15B7AD80005D5602 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 626D493715B7AD80005D5602;
+			remoteInfo = PhysicsTester;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		626D493815B7AD80005D5602 /* PhysicsTester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhysicsTester.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		626D493C15B7AD80005D5602 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		626D493E15B7AD80005D5602 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		626D494015B7AD80005D5602 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		626D494215B7AD80005D5602 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		626D494615B7AD80005D5602 /* PhysicsTester-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PhysicsTester-Info.plist"; sourceTree = "<group>"; };
+		626D494815B7AD80005D5602 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		626D494A15B7AD80005D5602 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		626D494C15B7AD80005D5602 /* PhysicsTester-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PhysicsTester-Prefix.pch"; sourceTree = "<group>"; };
+		626D494D15B7AD80005D5602 /* MAAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MAAppDelegate.h; sourceTree = "<group>"; };
+		626D494E15B7AD80005D5602 /* MAAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MAAppDelegate.m; sourceTree = "<group>"; };
+		626D495115B7AD80005D5602 /* PhysicsTester.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PhysicsTester.xcdatamodel; sourceTree = "<group>"; };
+		626D495815B7AD80005D5602 /* PhysicsTesterTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhysicsTesterTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		626D495915B7AD80005D5602 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		626D496215B7AD80005D5602 /* PhysicsTesterTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PhysicsTesterTests-Info.plist"; sourceTree = "<group>"; };
+		626D496415B7AD80005D5602 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		626D496615B7AD80005D5602 /* PhysicsTesterTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhysicsTesterTests.h; sourceTree = "<group>"; };
+		626D496715B7AD80005D5602 /* PhysicsTesterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhysicsTesterTests.m; sourceTree = "<group>"; };
+		626D497115B7ADE1005D5602 /* Rapture_Records_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Rapture_Records_logo.png; path = "../../../../Pictures/Loose Images/Rapture_Records_logo.png"; sourceTree = "<group>"; };
+		626D497315B7AF49005D5602 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		626D493515B7AD80005D5602 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				626D497415B7AF49005D5602 /* QuartzCore.framework in Frameworks */,
+				626D493D15B7AD80005D5602 /* UIKit.framework in Frameworks */,
+				626D493F15B7AD80005D5602 /* Foundation.framework in Frameworks */,
+				626D494115B7AD80005D5602 /* CoreGraphics.framework in Frameworks */,
+				626D494315B7AD80005D5602 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		626D495415B7AD80005D5602 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				626D495A15B7AD80005D5602 /* SenTestingKit.framework in Frameworks */,
+				626D495B15B7AD80005D5602 /* UIKit.framework in Frameworks */,
+				626D495C15B7AD80005D5602 /* Foundation.framework in Frameworks */,
+				626D495D15B7AD80005D5602 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		626D492D15B7AD80005D5602 = {
+			isa = PBXGroup;
+			children = (
+				626D497315B7AF49005D5602 /* QuartzCore.framework */,
+				626D494415B7AD80005D5602 /* PhysicsTester */,
+				626D496015B7AD80005D5602 /* PhysicsTesterTests */,
+				626D493B15B7AD80005D5602 /* Frameworks */,
+				626D493915B7AD80005D5602 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		626D493915B7AD80005D5602 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				626D493815B7AD80005D5602 /* PhysicsTester.app */,
+				626D495815B7AD80005D5602 /* PhysicsTesterTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		626D493B15B7AD80005D5602 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				626D493C15B7AD80005D5602 /* UIKit.framework */,
+				626D493E15B7AD80005D5602 /* Foundation.framework */,
+				626D494015B7AD80005D5602 /* CoreGraphics.framework */,
+				626D494215B7AD80005D5602 /* CoreData.framework */,
+				626D495915B7AD80005D5602 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		626D494415B7AD80005D5602 /* PhysicsTester */ = {
+			isa = PBXGroup;
+			children = (
+				626D494D15B7AD80005D5602 /* MAAppDelegate.h */,
+				626D494E15B7AD80005D5602 /* MAAppDelegate.m */,
+				626D495015B7AD80005D5602 /* PhysicsTester.xcdatamodeld */,
+				626D494515B7AD80005D5602 /* Supporting Files */,
+			);
+			path = PhysicsTester;
+			sourceTree = "<group>";
+		};
+		626D494515B7AD80005D5602 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				626D497115B7ADE1005D5602 /* Rapture_Records_logo.png */,
+				626D494615B7AD80005D5602 /* PhysicsTester-Info.plist */,
+				626D494715B7AD80005D5602 /* InfoPlist.strings */,
+				626D494A15B7AD80005D5602 /* main.m */,
+				626D494C15B7AD80005D5602 /* PhysicsTester-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		626D496015B7AD80005D5602 /* PhysicsTesterTests */ = {
+			isa = PBXGroup;
+			children = (
+				626D496615B7AD80005D5602 /* PhysicsTesterTests.h */,
+				626D496715B7AD80005D5602 /* PhysicsTesterTests.m */,
+				626D496115B7AD80005D5602 /* Supporting Files */,
+			);
+			path = PhysicsTesterTests;
+			sourceTree = "<group>";
+		};
+		626D496115B7AD80005D5602 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				626D496215B7AD80005D5602 /* PhysicsTesterTests-Info.plist */,
+				626D496315B7AD80005D5602 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		626D493715B7AD80005D5602 /* PhysicsTester */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 626D496B15B7AD80005D5602 /* Build configuration list for PBXNativeTarget "PhysicsTester" */;
+			buildPhases = (
+				626D493415B7AD80005D5602 /* Sources */,
+				626D493515B7AD80005D5602 /* Frameworks */,
+				626D493615B7AD80005D5602 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PhysicsTester;
+			productName = PhysicsTester;
+			productReference = 626D493815B7AD80005D5602 /* PhysicsTester.app */;
+			productType = "com.apple.product-type.application";
+		};
+		626D495715B7AD80005D5602 /* PhysicsTesterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 626D496E15B7AD80005D5602 /* Build configuration list for PBXNativeTarget "PhysicsTesterTests" */;
+			buildPhases = (
+				626D495315B7AD80005D5602 /* Sources */,
+				626D495415B7AD80005D5602 /* Frameworks */,
+				626D495515B7AD80005D5602 /* Resources */,
+				626D495615B7AD80005D5602 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				626D495F15B7AD80005D5602 /* PBXTargetDependency */,
+			);
+			name = PhysicsTesterTests;
+			productName = PhysicsTesterTests;
+			productReference = 626D495815B7AD80005D5602 /* PhysicsTesterTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		626D492F15B7AD80005D5602 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = MA;
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = "Milk Drinking Cow";
+			};
+			buildConfigurationList = 626D493215B7AD80005D5602 /* Build configuration list for PBXProject "PhysicsTester" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 626D492D15B7AD80005D5602;
+			productRefGroup = 626D493915B7AD80005D5602 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				626D493715B7AD80005D5602 /* PhysicsTester */,
+				626D495715B7AD80005D5602 /* PhysicsTesterTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		626D493615B7AD80005D5602 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				626D494915B7AD80005D5602 /* InfoPlist.strings in Resources */,
+				626D497215B7ADE1005D5602 /* Rapture_Records_logo.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		626D495515B7AD80005D5602 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				626D496515B7AD80005D5602 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		626D495615B7AD80005D5602 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		626D493415B7AD80005D5602 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				626D494B15B7AD80005D5602 /* main.m in Sources */,
+				626D494F15B7AD80005D5602 /* MAAppDelegate.m in Sources */,
+				626D495215B7AD80005D5602 /* PhysicsTester.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		626D495315B7AD80005D5602 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				626D496815B7AD80005D5602 /* PhysicsTesterTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		626D495F15B7AD80005D5602 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 626D493715B7AD80005D5602 /* PhysicsTester */;
+			targetProxy = 626D495E15B7AD80005D5602 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		626D494715B7AD80005D5602 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				626D494815B7AD80005D5602 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		626D496315B7AD80005D5602 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				626D496415B7AD80005D5602 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		626D496915B7AD80005D5602 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		626D496A15B7AD80005D5602 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		626D496C15B7AD80005D5602 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PhysicsTester/PhysicsTester-Prefix.pch";
+				INFOPLIST_FILE = "PhysicsTester/PhysicsTester-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		626D496D15B7AD80005D5602 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PhysicsTester/PhysicsTester-Prefix.pch";
+				INFOPLIST_FILE = "PhysicsTester/PhysicsTester-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		626D496F15B7AD80005D5602 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PhysicsTester.app/PhysicsTester";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PhysicsTester/PhysicsTester-Prefix.pch";
+				INFOPLIST_FILE = "PhysicsTesterTests/PhysicsTesterTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		626D497015B7AD80005D5602 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PhysicsTester.app/PhysicsTester";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PhysicsTester/PhysicsTester-Prefix.pch";
+				INFOPLIST_FILE = "PhysicsTesterTests/PhysicsTesterTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		626D493215B7AD80005D5602 /* Build configuration list for PBXProject "PhysicsTester" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				626D496915B7AD80005D5602 /* Debug */,
+				626D496A15B7AD80005D5602 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		626D496B15B7AD80005D5602 /* Build configuration list for PBXNativeTarget "PhysicsTester" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				626D496C15B7AD80005D5602 /* Debug */,
+				626D496D15B7AD80005D5602 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		626D496E15B7AD80005D5602 /* Build configuration list for PBXNativeTarget "PhysicsTesterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				626D496F15B7AD80005D5602 /* Debug */,
+				626D497015B7AD80005D5602 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		626D495015B7AD80005D5602 /* PhysicsTester.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				626D495115B7AD80005D5602 /* PhysicsTester.xcdatamodel */,
+			);
+			currentVersion = 626D495115B7AD80005D5602 /* PhysicsTester.xcdatamodel */;
+			path = PhysicsTester.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 626D492F15B7AD80005D5602 /* Project object */;
+}

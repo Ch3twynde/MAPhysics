@@ -15,4 +15,9 @@
 
 @interface MAPhysicsViewCon : UIViewController
 
+
+- (int)loadLastValues: (WorldSettings)settings;
+
+
+
 @end

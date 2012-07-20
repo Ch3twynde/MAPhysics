@@ -12,6 +12,8 @@
 extern const float kAccelerationConstant; 
 extern const float kSpeedConstant; 
 extern const float kMaxSpeedConstant; 
+extern const NSString *kSavedSettings;
+
 
 typedef struct Collision {
 
@@ -29,14 +31,8 @@ typedef struct Collision {
 } Collision;
 
 
-@interface MAPhysicsViewCon () {
+typedef struct WorldSettings {
 
-        
-        
-    NSDate *touchTimeStart;
-    NSDate *touchTimeEnd;
-
-    
     double angle;
     double speed;
     double acceleration;
@@ -46,11 +42,31 @@ typedef struct Collision {
     int falling;
     float elasticity;
 
+
+} WorldSettings;
+
+
+@interface MAPhysicsViewCon () {
+
+        
+    // Timing
+    NSDate *touchTimeStart;
+    NSDate *touchTimeEnd;
+
+    
+    // World
+    WorldSettings worldSettings;
+
+    
+    // Ground
     float ground;
     CGRect groundRect;
     int grounded;
     
+    // Screen
     CGRect screen;
+    
+    // Touches
     int fingerDown, wasFingerDown;
 
 
@@ -68,7 +84,7 @@ typedef struct Collision {
 const float kAccelerationConstant = 0.0125;
 const float kSpeedConstant = 1.1;
 const float kMaxSpeedConstant = 12.5;
-
+const NSString *kSavedSettings = @"lastWorldSettings";
 
 @implementation MAPhysicsViewCon
 
@@ -87,19 +103,40 @@ const float kMaxSpeedConstant = 12.5;
         [self setWorldVars];
         [self setVarLabels];
         
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(appIsEnding:) 
+                                                     name:UIApplicationDidEnterBackgroundNotification 
+                                                   object:nil];
+        
+        
     }
     
     return self;
+}
+
+- (void)appIsEnding:(NSNotification *)notification {
+    
+    void *ptr = (void*)worldSettings;
+    [[NSUserDefaults standardUserDefaults] setObject:[NSValue valueWithBytes:<#(const void *)#> objCType:<#(const char *)#>] forKey:@"lastWorldSettings"]
+}
+
+
+- (int)loadLastValues: (WorldSettings)settings {
+    
+    worldSettings = settings;
+    [self setWorldVars];
+    
+    return true;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
     
     touchTimeStart = [NSDate date];
-    acceleration = kAccelerationConstant;
+    worldSettings.acceleration = kAccelerationConstant;
     fingerDown = true;
     wasFingerDown = false;
-    falling = false;
+    worldSettings.falling = false;
 }
 
 
@@ -112,18 +149,19 @@ const float kMaxSpeedConstant = 12.5;
 
 - (void)setWorldVars {
     
-    angle = 270;
-    speed = 1.1;
-    acceleration = 0.0025;
-    maxAcceleration = 0.15;
-    gravity = 4;
-    moving = true;
-    falling = false;
+    worldSettings.angle = 270;
+    worldSettings.speed = 1.1;
+    worldSettings.acceleration = 0.0025;
+    worldSettings.maxAcceleration = 0.15;
+    worldSettings.gravity = 4;
+    worldSettings.moving = true;
+    worldSettings.falling = false;
+    worldSettings.elasticity = 2.5;
+
     screen = [[UIScreen mainScreen] bounds];
     ground = self.view.frame.origin.y + self.view.frame.size.height;
     groundRect = CGRectMake(0, ground-20, screen.size.width, 20);
     grounded = false;
-    elasticity = 2.5;
     
 }
 

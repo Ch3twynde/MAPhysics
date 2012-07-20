@@ -22,6 +22,8 @@
 		626D496515B7AD80005D5602 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 626D496315B7AD80005D5602 /* InfoPlist.strings */; };
 		626D496815B7AD80005D5602 /* PhysicsTesterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 626D496715B7AD80005D5602 /* PhysicsTesterTests.m */; };
 		626D497415B7AF49005D5602 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626D497315B7AF49005D5602 /* QuartzCore.framework */; };
+		7D7CDCC515B9D85F00901DB6 /* ValueSliders.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D7CDCC415B9D85F00901DB6 /* ValueSliders.xib */; };
+		7D7CDCC915B9DC7900901DB6 /* MASliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7CDCC815B9DC7900901DB6 /* MASliderView.m */; };
 		7D8F8E7515B8B23400F1B5E3 /* Rapture_Records_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8F8E7415B8B23400F1B5E3 /* Rapture_Records_logo.png */; };
 		7D8F8E7815B8B38100F1B5E3 /* MAPhysicsViewCon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8F8E7715B8B38100F1B5E3 /* MAPhysicsViewCon.m */; };
 /* End PBXBuildFile section */
@@ -56,6 +58,9 @@
 		626D496615B7AD80005D5602 /* PhysicsTesterTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhysicsTesterTests.h; sourceTree = "<group>"; };
 		626D496715B7AD80005D5602 /* PhysicsTesterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhysicsTesterTests.m; sourceTree = "<group>"; };
 		626D497315B7AF49005D5602 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		7D7CDCC415B9D85F00901DB6 /* ValueSliders.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ValueSliders.xib; sourceTree = "<group>"; };
+		7D7CDCC715B9DC7900901DB6 /* MASliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASliderView.h; sourceTree = "<group>"; };
+		7D7CDCC815B9DC7900901DB6 /* MASliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASliderView.m; sourceTree = "<group>"; };
 		7D8F8E7415B8B23400F1B5E3 /* Rapture_Records_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rapture_Records_logo.png; sourceTree = "<group>"; };
 		7D8F8E7615B8B38100F1B5E3 /* MAPhysicsViewCon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPhysicsViewCon.h; sourceTree = "<group>"; };
 		7D8F8E7715B8B38100F1B5E3 /* MAPhysicsViewCon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAPhysicsViewCon.m; sourceTree = "<group>"; };
@@ -127,6 +132,9 @@
 				626D494E15B7AD80005D5602 /* MAAppDelegate.m */,
 				7D8F8E7615B8B38100F1B5E3 /* MAPhysicsViewCon.h */,
 				7D8F8E7715B8B38100F1B5E3 /* MAPhysicsViewCon.m */,
+				7D7CDCC715B9DC7900901DB6 /* MASliderView.h */,
+				7D7CDCC815B9DC7900901DB6 /* MASliderView.m */,
+				7D7CDCC415B9D85F00901DB6 /* ValueSliders.xib */,
 				626D495015B7AD80005D5602 /* PhysicsTester.xcdatamodeld */,
 				626D494515B7AD80005D5602 /* Supporting Files */,
 			);
@@ -238,6 +246,7 @@
 			files = (
 				626D494915B7AD80005D5602 /* InfoPlist.strings in Resources */,
 				7D8F8E7515B8B23400F1B5E3 /* Rapture_Records_logo.png in Resources */,
+				7D7CDCC515B9D85F00901DB6 /* ValueSliders.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +285,7 @@
 				626D494F15B7AD80005D5602 /* MAAppDelegate.m in Sources */,
 				626D495215B7AD80005D5602 /* PhysicsTester.xcdatamodeld in Sources */,
 				7D8F8E7815B8B38100F1B5E3 /* MAPhysicsViewCon.m in Sources */,
+				7D7CDCC915B9DC7900901DB6 /* MASliderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

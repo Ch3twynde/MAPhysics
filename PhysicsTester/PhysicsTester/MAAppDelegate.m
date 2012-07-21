@@ -25,6 +25,7 @@
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
+@synthesize displayLink;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -38,7 +39,7 @@
     self.window.rootViewController = theViewController;
     
 
-    CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:theViewController selector:@selector(update)];
+    displayLink = [CADisplayLink displayLinkWithTarget:theViewController selector:@selector(update)];
     [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     
     

@@ -48,7 +48,7 @@ typedef struct WorldSettings {
     
 @property (strong) IBOutlet UILabel *velocityYLabel, *accelerationLabel, *speedLabel, *gravityLabel, *elasticityLabel, *angleLabel;
 @property (strong) IBOutlet UISlider *accelerationSlider, *gravitySlider, *elasticitySlider, *angleSlider;
-
+@property (strong) IBOutlet UIButton *playPause;
 
 - (int)loadLastValues;
 

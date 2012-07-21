@@ -8,6 +8,8 @@
 
 #import "MAPhysicsViewCon.h"
 #import "MASliderView.h"
+#import "MAAppDelegate.h"
+#import <QuartzCore/QuartzCore.h>
 
 extern const float kAccelerationConstant; 
 extern const float kSpeedConstant; 
@@ -32,6 +34,7 @@ extern const NSString *kSavedSettings;
     // Ground
     float ground;
     CGRect groundRect;
+    CGRect leftWall, rightWall, topWall;
     int grounded;
     
     // Screen
@@ -60,6 +63,7 @@ const NSString *kSavedSettings = @"lastWorldSettings";
 
 @synthesize object, velocityYLabel, accelerationLabel, speedLabel, gravityLabel, elasticityLabel, angleLabel;
 @synthesize accelerationSlider, gravitySlider, elasticitySlider, angleSlider;
+@synthesize playPause;
 
 
 - (id)init {
@@ -102,6 +106,8 @@ const NSString *kSavedSettings = @"lastWorldSettings";
                                   0, 
                                   sliderView.frame.size.width, 
                                   sliderView.frame.size.height);
+    
+    playPause.selected = true;
     
     [self.view addSubview:sliderView];
     
@@ -166,6 +172,24 @@ const NSString *kSavedSettings = @"lastWorldSettings";
 }
 
 
+- (IBAction)playPause:(id)sender {
+    
+    MAAppDelegate *del = [[UIApplication sharedApplication] delegate];
+
+    if ( [[del displayLink] isPaused] ) {
+        // Show play symbol when paused
+        playPause.selected = true;
+        [del displayLink].paused = NO;
+        LogMe(@"Resuming play...");
+    } else {
+        // Show pause symbol when playing
+        playPause.selected = false;
+        [del displayLink].paused = YES;
+        LogMe(@"Pausing play...");
+    }
+    
+}
+
 - (IBAction)slidersWereUpdated: (id)sender {
     
     if ( [sender isKindOfClass:[UISlider class]] ) {
@@ -228,7 +252,11 @@ const NSString *kSavedSettings = @"lastWorldSettings";
 
     screen = [[UIScreen mainScreen] bounds];
     ground = self.view.frame.origin.y + self.view.frame.size.height;
-    groundRect = CGRectMake(0, ground-20, screen.size.width, 20);
+    groundRect =    CGRectMake(0, ground-20, screen.size.width, 20);
+    leftWall =      CGRectMake(0, 20, 20, screen.size.height);
+    rightWall =     CGRectMake(screen.size.width-20, 0, 20, screen.size.height);
+    topWall =       CGRectMake(0, 0, screen.size.width, 20);
+    
     grounded = false;
     
 }
@@ -349,7 +377,7 @@ const NSString *kSavedSettings = @"lastWorldSettings";
     
     velocity_x = worldSettings.speed * scale_x;
     velocity_y = worldSettings.speed * scale_y + worldSettings.gravity;
-    
+    worldSettings.gravity += 0.001;
     // Check for ground collision
     bool isGrounded = [self collisionTest];
 
@@ -391,25 +419,47 @@ const NSString *kSavedSettings = @"lastWorldSettings";
 
 - (int)collisionTest {
     
-    // Another detection style
+    // Ground
     float dx=object.frame.origin.x - groundRect.origin.x;
     float dy=object.frame.origin.y - groundRect.origin.y;
     float distance = dx+dy;
+    
+    // Left
+    float dxLeft=object.frame.origin.x - leftWall.origin.x;
+    float dyLeft=object.frame.origin.y - leftWall.origin.y;
+    float distanceLeft = dxLeft+dyLeft;
+   
+    // Right
+    float dxRight=object.frame.origin.x - rightWall.origin.x;
+    float dyRight=object.frame.origin.y - rightWall.origin.y;
+    float distanceRight = dxRight+dyRight;
+
+    // Top
+    float dxTop=object.frame.origin.x - topWall.origin.x;
+    float dyTop=object.frame.origin.y - topWall.origin.y;
+    float distanceTop = dxTop+dyTop;
+
 
     if ( pow(distance, 2) < object.frame.size.height ) {
+        
         return true;
+    } else if ( pow(distanceLeft, 2) < object.frame.size.height ) {
+        
+        return true;
+
+    } else if ( pow(distanceRight, 2) < object.frame.size.height ) {
+        
+        return true;
+        
+    } else if ( pow(distanceTop, 2) < object.frame.size.height ) {
+        
+        return true;
+        
     }
+
+
+        
     
-    //sqrt( (dx*dx) + (dy*dy) );
-    
-    
-    // One detection style
-    if (CGRectIntersectsRect(object.frame, groundRect) || 
-        CGRectContainsRect(object.frame, groundRect) || 
-        (CGRectContainsRect(groundRect, object.frame) ) ) {
-        // they either overlap or one is inside the other
-        return true;
-    }    
     
     return false;
 }

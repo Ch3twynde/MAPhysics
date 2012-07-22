@@ -26,6 +26,11 @@
     collision.isColliding = _isColliding;
 }
 
+- (void)setRectName: (NSString *)name {
+    
+    collision.rectName = [name cStringUsingEncoding:NSUTF8StringEncoding];
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

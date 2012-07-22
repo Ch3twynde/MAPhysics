@@ -20,6 +20,8 @@
 extern const float kAccelerationConstant; 
 extern const float kSpeedConstant; 
 extern const float kMaxSpeedConstant; 
+extern const float kGravityConstant;
+extern const double kMaxAccelerationConstant;
 extern const NSString *kSavedSettings;
 
 
@@ -65,9 +67,12 @@ extern const NSString *kSavedSettings;
 
 
 
-const float kAccelerationConstant = 0.0225;
-const float kSpeedConstant = 1.1;
-const float kMaxSpeedConstant = 12.5;
+const float kAccelerationConstant =     0.0225;
+const float kSpeedConstant =            1.1;
+const float kMaxSpeedConstant =         10.5;
+const float kGravityConstant =          6;
+const double kMaxAccelerationConstant = 1.0;
+
 const NSString *kSavedSettings = @"lastWorldSettings";
 
 
@@ -75,7 +80,7 @@ const NSString *kSavedSettings = @"lastWorldSettings";
 @implementation MAPhysicsViewCon
 
 @synthesize object, velocityYLabel, accelerationLabel, speedLabel, gravityLabel, elasticityLabel, angleLabel;
-@synthesize accelerationSlider, gravitySlider, elasticitySlider, angleSlider;
+@synthesize accelerationSlider, gravitySlider, elasticitySlider, angleSlider, speedSlider;
 @synthesize playPause;
 
 
@@ -127,23 +132,35 @@ const NSString *kSavedSettings = @"lastWorldSettings";
 #pragma mark App State
 - (void)appIsEnding:(NSNotification *)notification {
     
+    [self saveCurrentSettings];
+}
+
+- (void)appIsResuming: (NSNotification *)notification {
+    
+    [self loadLastValues];
+}
+
+- (IBAction)ibActionSaveCurrentSettings:(id)sender {
+    
+    [self saveCurrentSettings];
+}
+
+- (int)saveCurrentSettings {
+    
     // Wrap last settings
     void *ptr = (void*)malloc(sizeof(WorldSettings));
     ptr = &worldSettings;
     
     WorldSettings *ptrToSettings = (WorldSettings *)ptr;
-//    WorldSettings theSettings = *ptrToSettings;
+    //    WorldSettings theSettings = *ptrToSettings;
     
     NSData *dataWithWorldSettings = [NSData dataWithBytes:ptrToSettings length:sizeof(WorldSettings)];
     
     
     [[NSUserDefaults standardUserDefaults] setObject:dataWithWorldSettings forKey:@"lastWorldSettings"];
     LogMe(@"Saved current settings.");
-}
 
-- (void)appIsResuming: (NSNotification *)notification {
-    
-    [self loadLastValues];
+    return 1;
 }
 
 
@@ -239,8 +256,9 @@ const NSString *kSavedSettings = @"lastWorldSettings";
         
         if ( currentSlider.tag == 0 ) {
             // Acceleration
-            accelerationLabel.text = [NSString stringWithFormat:@"Acceleration: %0.4f", currentSlider.value];
+            accelerationLabel.text = [NSString stringWithFormat:@"Acceleration: %0.6f", currentSlider.value];
             worldSettings.acceleration = currentSlider.value;
+            [accelerationLabel sizeToFit];
         } else if ( currentSlider.tag == 1 ) {
             // Gravity
             gravityLabel.text = [NSString stringWithFormat:@"Gravity: %0.2f", currentSlider.value];
@@ -253,7 +271,13 @@ const NSString *kSavedSettings = @"lastWorldSettings";
             // Angle
             angleLabel.text = [NSString stringWithFormat:@"Angle: %0.2f", currentSlider.value];
             worldSettings.angle = currentSlider.value;
+        } else if ( currentSlider.tag == 4 ) {
+            // Speed
+            speedLabel.text = [NSString stringWithFormat:@"Speed: %0.2f", currentSlider.value];
+            worldSettings.speed = currentSlider.value;
+            
         }
+
         
     }
 }
@@ -268,13 +292,13 @@ const NSString *kSavedSettings = @"lastWorldSettings";
     
     
     // Acceleration
-    worldSettings.acceleration = 0.0035;
-    accelerationLabel.text = [NSString stringWithFormat:@"acceleration: %0.2f", worldSettings.acceleration];
+    worldSettings.acceleration = 0.000135;
+    accelerationLabel.text = [NSString stringWithFormat:@"acceleration: %0.6f", worldSettings.acceleration];
     accelerationSlider.value = worldSettings.acceleration;
-
+    accelerationSlider.maximumValue = 1.0;
     
     // Gravity
-    worldSettings.gravity = 6;
+    worldSettings.gravity = 3;
     gravityLabel.text = [NSString stringWithFormat:@"gravity: %0.2f", worldSettings.gravity];
     gravitySlider.value = worldSettings.gravity;
 
@@ -284,11 +308,15 @@ const NSString *kSavedSettings = @"lastWorldSettings";
     elasticityLabel.text = [NSString stringWithFormat:@"elasticity: %0.2f", worldSettings.elasticity];
     elasticitySlider.value = worldSettings.elasticity;
 
+    // Speed
+    worldSettings.speed = 1.1;
+    speedLabel.text = [NSString stringWithFormat:@"speed: %0.2f", worldSettings.speed];
+    speedSlider.value = worldSettings.speed;
+    speedSlider.maximumValue = kMaxSpeedConstant;
+
     
     
     // Other values
-    worldSettings.speed = 1.1;
-    worldSettings.maxAcceleration = 0.15;
     worldSettings.moving = true;
     worldSettings.falling = false;
 
@@ -343,80 +371,8 @@ const NSString *kSavedSettings = @"lastWorldSettings";
 #pragma mark -
 #pragma mark Update
 
-// Deprecated update
-- (void)update {
-    
-    
-    // Just for testing the other update method
-    [self substituteUpdate];
-    return;
-    
-    
-    double scale_x;
-    double scale_y;
-    double velocity_x = 0;
-    double velocity_y = 0;
-    
-    
-    // User touches screen to make object
-    // rise
-    if ( fingerDown ) {
-        
-        if ( worldSettings.acceleration < worldSettings.maxAcceleration ) {
-            worldSettings.acceleration += kAccelerationConstant;
-        }
-    }
-    
-    
-    if ( !worldSettings.falling && fingerDown ) {
-        
-        scale_x = cos(DegreesToRadians(worldSettings.angle));
-        scale_y = sin(DegreesToRadians(worldSettings.angle));
-        
-        velocity_x = worldSettings.speed * scale_x;
-        velocity_y = worldSettings.speed * scale_y + worldSettings.gravity;
-        
-        object.frame = CGRectMake(object.frame.origin.x + velocity_x,
-                                  object.frame.origin.y + velocity_y,
-                                  object.frame.size.width,
-                                  object.frame.size.height);
-        
-        worldSettings.speed += worldSettings.acceleration;
-        
-    } else if ( worldSettings.moving ) {
-        
-        worldSettings.falling = true;
-        velocity_y = velocity_y + worldSettings.gravity;
-        
-        if ( (object.frame.origin.y+object.frame.size.height) - velocity_y < ground - 50 ) {
-            
-            object.frame = CGRectMake(object.frame.origin.x,
-                                      object.frame.origin.y + velocity_y,
-                                      object.frame.size.width,
-                                      object.frame.size.height);
-            
-            worldSettings.gravity += 0.5;
-        } else {
-            
-            worldSettings.gravity = 0;
-            velocity_y = velocity_y * worldSettings.elasticity;
-            
-            object.frame = CGRectMake(object.frame.origin.x,
-                                      object.frame.origin.y - velocity_y,
-                                      object.frame.size.width,
-                                      object.frame.size.height);
-            worldSettings.elasticity /= 2;
-            
-        }
-        
-    }
-    
-    velocityYLabel.text = [NSString stringWithFormat:@"velocity_y: %0.2f", velocity_y];
-    
-    
-}
 
-- (void)substituteUpdate {
+- (void)update {
     
     
     
@@ -429,9 +385,9 @@ const NSString *kSavedSettings = @"lastWorldSettings";
     scale_x = cos(DegreesToRadians(worldSettings.angle));
     scale_y = sin(DegreesToRadians(worldSettings.angle));
     
-    velocity_x = worldSettings.speed * scale_x;
+    //velocity_x = 0;// worldSettings.speed /** scale_x*/;
     velocity_y = worldSettings.speed * scale_y + worldSettings.gravity;
-    worldSettings.gravity += 0.001;
+    
     
     
     // Check for ground collision
@@ -440,22 +396,56 @@ const NSString *kSavedSettings = @"lastWorldSettings";
     
     // Upward user forces
     if ( fingerDown ) { 
-        
+
+
+        // Increase speed
         if ( worldSettings.speed < kMaxSpeedConstant ) {
             worldSettings.speed += worldSettings.acceleration; 
         }
         
-    } else if ( object.collision.isColliding ) {
+        // Accelerate acceleration -- heh.
+        if ( worldSettings.acceleration < kMaxAccelerationConstant ) {
+            worldSettings.acceleration += kAccelerationConstant;
+        }
+        
+        worldSettings.gravity = kGravityConstant;
+        
+    } else if ( !object.collision.isColliding ) {
         
         if ( worldSettings.speed > kSpeedConstant ) {
             worldSettings.speed -= worldSettings.acceleration; 
         }
+        
+        worldSettings.gravity *= 1.0055;
+        worldSettings.acceleration = kAccelerationConstant;
+
 
     }
    
+    // Get off of a stuck floor
     if ( object.collision.isColliding ) {
-        if ( velocity_x > 0 ) velocity_x = 0;
-        if ( velocity_y > 0 ) velocity_y = 0;
+        
+        // If no finger down, stop.
+        if ( !fingerDown ) {
+            
+            // Check rect tag name
+            if ( [[NSString stringWithCString:object.collision.rectName encoding:NSUTF8StringEncoding] isEqualToString:@"groundRect"] ) {  
+                
+                // Colliding with ground will just stop (for now).
+                velocity_x = 0;
+                velocity_y = 0;
+                
+            } else {
+                
+                // Flip from neg to pos or vice versa
+                if ( velocity_y > 0 ) velocity_y = -velocity_y;
+                else velocity_y = velocity_y*-1;
+                
+            }
+            
+        }
+        
+        
     }
 
         
@@ -470,7 +460,6 @@ const NSString *kSavedSettings = @"lastWorldSettings";
     speedLabel.text = [NSString stringWithFormat:@"speed: %0.2f", worldSettings.speed];
     [speedLabel sizeToFit];
 
-    [self collisionTest];
 }
 
 
@@ -491,7 +480,7 @@ const NSString *kSavedSettings = @"lastWorldSettings";
     return distance;
 }
 
-- (double)distanceToObject: (CGRect)rect {
+- (double)distanceToFrame: (CGRect)rect {
     
     // Convienience method
     return [self distanceToPoint:MARectGetCenter(rect)];
@@ -515,12 +504,35 @@ const NSString *kSavedSettings = @"lastWorldSettings";
         
         if ( [self areaCollisionTest:object.frame obj2:sceneRects[i]] ) {
             colliding = true;
+            [object setRectName:[self nameForRectByIndex:i]];
+            break;
         }
 
     }
     
     
     return colliding;
+    
+}
+
+
+- (NSString *)nameForRectByIndex: (int)index {
+    
+    NSString *rectName;
+    
+    if ( index == 0 ) {
+        rectName = @"groundRect";
+    } else if (index == 1 ) {
+        rectName = @"leftWall";
+    } else if (index == 2 ) {
+        rectName = @"rightWall";
+    } else if (index == 3 ) {
+        rectName = @"topWall";
+    } else {
+        rectName = @"UNK";
+    }
+    
+    return rectName;
     
 }
 

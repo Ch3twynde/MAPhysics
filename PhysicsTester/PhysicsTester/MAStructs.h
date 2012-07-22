@@ -28,6 +28,7 @@ typedef struct WorldSettings {
     double speed;
     double acceleration;
     double gravity;
+    double gravityROC;
     int moving;
     int falling;
     float elasticity;

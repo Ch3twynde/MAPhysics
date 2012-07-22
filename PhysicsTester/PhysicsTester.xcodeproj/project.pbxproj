@@ -22,6 +22,10 @@
 		626D496515B7AD80005D5602 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 626D496315B7AD80005D5602 /* InfoPlist.strings */; };
 		626D496815B7AD80005D5602 /* PhysicsTesterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 626D496715B7AD80005D5602 /* PhysicsTesterTests.m */; };
 		626D497415B7AF49005D5602 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626D497315B7AF49005D5602 /* QuartzCore.framework */; };
+		7D5BDD3115BB530E004D0DE3 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D5BDD3015BB530E004D0DE3 /* CoreFoundation.framework */; };
+		7D5BDD3415BB539C004D0DE3 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D5BDD3315BB539C004D0DE3 /* CoreMedia.framework */; };
+		7D5BDD3715BBA5DD004D0DE3 /* MAPhysicalObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BDD3615BBA5DD004D0DE3 /* MAPhysicalObject.m */; };
+		7D5BDD3C15BBD7DF004D0DE3 /* MAArrayChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BDD3B15BBD7DF004D0DE3 /* MAArrayChecker.m */; };
 		7D7CDCC515B9D85F00901DB6 /* ValueSliders.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D7CDCC415B9D85F00901DB6 /* ValueSliders.xib */; };
 		7D7CDCC915B9DC7900901DB6 /* MASliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7CDCC815B9DC7900901DB6 /* MASliderView.m */; };
 		7D8F8E7515B8B23400F1B5E3 /* Rapture_Records_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8F8E7415B8B23400F1B5E3 /* Rapture_Records_logo.png */; };
@@ -58,12 +62,20 @@
 		626D496615B7AD80005D5602 /* PhysicsTesterTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhysicsTesterTests.h; sourceTree = "<group>"; };
 		626D496715B7AD80005D5602 /* PhysicsTesterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhysicsTesterTests.m; sourceTree = "<group>"; };
 		626D497315B7AF49005D5602 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		7D5BDD3015BB530E004D0DE3 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		7D5BDD3315BB539C004D0DE3 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		7D5BDD3515BBA5DD004D0DE3 /* MAPhysicalObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPhysicalObject.h; sourceTree = "<group>"; };
+		7D5BDD3615BBA5DD004D0DE3 /* MAPhysicalObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAPhysicalObject.m; sourceTree = "<group>"; };
+		7D5BDD3A15BBD7DF004D0DE3 /* MAArrayChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAArrayChecker.h; sourceTree = "<group>"; };
+		7D5BDD3B15BBD7DF004D0DE3 /* MAArrayChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAArrayChecker.m; sourceTree = "<group>"; };
 		7D7CDCC415B9D85F00901DB6 /* ValueSliders.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ValueSliders.xib; sourceTree = "<group>"; };
 		7D7CDCC715B9DC7900901DB6 /* MASliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASliderView.h; sourceTree = "<group>"; };
 		7D7CDCC815B9DC7900901DB6 /* MASliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASliderView.m; sourceTree = "<group>"; };
 		7D8F8E7415B8B23400F1B5E3 /* Rapture_Records_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rapture_Records_logo.png; sourceTree = "<group>"; };
 		7D8F8E7615B8B38100F1B5E3 /* MAPhysicsViewCon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPhysicsViewCon.h; sourceTree = "<group>"; };
 		7D8F8E7715B8B38100F1B5E3 /* MAPhysicsViewCon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAPhysicsViewCon.m; sourceTree = "<group>"; };
+		7DB8624E15BBE866000C91FF /* MAUtils.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = MAUtils.c; sourceTree = "<group>"; };
+		7DB8624F15BBE9CA000C91FF /* MAStructs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MAStructs.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +83,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D5BDD3415BB539C004D0DE3 /* CoreMedia.framework in Frameworks */,
+				7D5BDD3115BB530E004D0DE3 /* CoreFoundation.framework in Frameworks */,
 				626D497415B7AF49005D5602 /* QuartzCore.framework in Frameworks */,
 				626D493D15B7AD80005D5602 /* UIKit.framework in Frameworks */,
 				626D493F15B7AD80005D5602 /* Foundation.framework in Frameworks */,
@@ -96,6 +110,8 @@
 		626D492D15B7AD80005D5602 = {
 			isa = PBXGroup;
 			children = (
+				7D5BDD3315BB539C004D0DE3 /* CoreMedia.framework */,
+				7D5BDD3015BB530E004D0DE3 /* CoreFoundation.framework */,
 				626D497315B7AF49005D5602 /* QuartzCore.framework */,
 				626D494415B7AD80005D5602 /* PhysicsTester */,
 				626D496015B7AD80005D5602 /* PhysicsTesterTests */,
@@ -132,6 +148,12 @@
 				626D494E15B7AD80005D5602 /* MAAppDelegate.m */,
 				7D8F8E7615B8B38100F1B5E3 /* MAPhysicsViewCon.h */,
 				7D8F8E7715B8B38100F1B5E3 /* MAPhysicsViewCon.m */,
+				7D5BDD3515BBA5DD004D0DE3 /* MAPhysicalObject.h */,
+				7D5BDD3615BBA5DD004D0DE3 /* MAPhysicalObject.m */,
+				7DB8624E15BBE866000C91FF /* MAUtils.c */,
+				7DB8624F15BBE9CA000C91FF /* MAStructs.h */,
+				7D5BDD3A15BBD7DF004D0DE3 /* MAArrayChecker.h */,
+				7D5BDD3B15BBD7DF004D0DE3 /* MAArrayChecker.m */,
 				7D7CDCC715B9DC7900901DB6 /* MASliderView.h */,
 				7D7CDCC815B9DC7900901DB6 /* MASliderView.m */,
 				7D7CDCC415B9D85F00901DB6 /* ValueSliders.xib */,
@@ -286,6 +308,8 @@
 				626D495215B7AD80005D5602 /* PhysicsTester.xcdatamodeld in Sources */,
 				7D8F8E7815B8B38100F1B5E3 /* MAPhysicsViewCon.m in Sources */,
 				7D7CDCC915B9DC7900901DB6 /* MASliderView.m in Sources */,
+				7D5BDD3715BBA5DD004D0DE3 /* MAPhysicalObject.m in Sources */,
+				7D5BDD3C15BBD7DF004D0DE3 /* MAArrayChecker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,6 +372,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -368,6 +393,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -380,6 +406,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PhysicsTester/PhysicsTester-Prefix.pch";
 				INFOPLIST_FILE = "PhysicsTester/PhysicsTester-Info.plist";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -391,6 +418,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PhysicsTester/PhysicsTester-Prefix.pch";
 				INFOPLIST_FILE = "PhysicsTester/PhysicsTester-Info.plist";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

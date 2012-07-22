@@ -10,6 +10,8 @@
 #import "MAAppDelegate.h"
 #import "MAPhysicsViewCon.h"
 #import <QuartzCore/QuartzCore.h>
+#import <CoreFoundation/CoreFoundation.h>
+#import <CoreMedia/CoreMedia.h>
 
 
 @interface MAAppDelegate () {
@@ -27,6 +29,10 @@
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 @synthesize displayLink;
 
+
+
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -37,6 +43,9 @@
     MAPhysicsViewCon *theViewController = [[MAPhysicsViewCon alloc] init];
     theViewController.view.frame = [[UIScreen mainScreen] bounds];
     self.window.rootViewController = theViewController;
+    
+
+    
     
 
     displayLink = [CADisplayLink displayLinkWithTarget:theViewController selector:@selector(update)];

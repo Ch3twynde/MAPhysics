@@ -7,14 +7,22 @@
 //
 
 #import "MAPhysicsViewCon.h"
+
+#import "MAPhysicalObject.h"
 #import "MASliderView.h"
 #import "MAAppDelegate.h"
+#import "MAUtils.c"
+
 #import <QuartzCore/QuartzCore.h>
+
+
 
 extern const float kAccelerationConstant; 
 extern const float kSpeedConstant; 
 extern const float kMaxSpeedConstant; 
 extern const NSString *kSavedSettings;
+
+
 
 
 
@@ -28,8 +36,11 @@ extern const NSString *kSavedSettings;
 
     
     // World
-    WorldSettings worldSettings;
-
+    struct WorldSettings worldSettings;
+    
+    
+    // Objects
+    CGRect sceneRects[10];
     
     // Ground
     float ground;
@@ -46,7 +57,7 @@ extern const NSString *kSavedSettings;
 
 }
 
-@property (strong) UIImageView *object;
+@property (strong) MAPhysicalObject *object;
 
 
 @end
@@ -54,10 +65,12 @@ extern const NSString *kSavedSettings;
 
 
 
-const float kAccelerationConstant = 0.0125;
+const float kAccelerationConstant = 0.0225;
 const float kSpeedConstant = 1.1;
 const float kMaxSpeedConstant = 12.5;
 const NSString *kSavedSettings = @"lastWorldSettings";
+
+
 
 @implementation MAPhysicsViewCon
 
@@ -66,12 +79,16 @@ const NSString *kSavedSettings = @"lastWorldSettings";
 @synthesize playPause;
 
 
+
+
+#pragma mark -
+#pragma mark Init
 - (id)init {
     
     if ( self = [super init] ) {
         
-        object = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Rapture_Records_logo"]];
-        object.frame = CGRectMake(20, 400, 100, 100);
+        object = [[MAPhysicalObject alloc] initWithImage:[UIImage imageNamed:@"Rapture_Records_logo"]];
+        object.frame = CGRectMake(100, 400, 100, 100);
         
         [self.view addSubview:object];
         
@@ -96,23 +113,18 @@ const NSString *kSavedSettings = @"lastWorldSettings";
     return self;
 }
 
-- (void)addSliderView {
-    
-   //MASliderView *sliderView = [[MASliderView alloc] initWithNibName:@"ValueSliders" bundle:[NSBundle mainBundle]];
-    
-    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ValueSliders" owner:self options:nil];
-    UIView *sliderView = [nib objectAtIndex:0];
-    sliderView.frame = CGRectMake(768-sliderView.frame.size.width, 
-                                  0, 
-                                  sliderView.frame.size.width, 
-                                  sliderView.frame.size.height);
-    
-    playPause.selected = true;
-    
-    [self.view addSubview:sliderView];
-    
-}
 
+
+
+
+
+
+
+
+
+
+#pragma mark -
+#pragma mark App State
 - (void)appIsEnding:(NSNotification *)notification {
     
     // Wrap last settings
@@ -153,6 +165,12 @@ const NSString *kSavedSettings = @"lastWorldSettings";
     return true;
 }
 
+
+
+
+
+#pragma mark -
+#pragma mark Touches
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
     
@@ -170,6 +188,30 @@ const NSString *kSavedSettings = @"lastWorldSettings";
     fingerDown = false;
     wasFingerDown = true;
 }
+
+
+
+
+
+#pragma mark -
+#pragma mark Controls
+- (void)addSliderView {
+    
+    //MASliderView *sliderView = [[MASliderView alloc] initWithNibName:@"ValueSliders" bundle:[NSBundle mainBundle]];
+    
+    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ValueSliders" owner:self options:nil];
+    UIView *sliderView = [nib objectAtIndex:0];
+    sliderView.frame = CGRectMake(768-sliderView.frame.size.width, 
+                                  0, 
+                                  sliderView.frame.size.width, 
+                                  sliderView.frame.size.height);
+    
+    playPause.selected = true;
+    
+    [self.view addSubview:sliderView];
+    
+}
+
 
 
 - (IBAction)playPause:(id)sender {
@@ -226,13 +268,13 @@ const NSString *kSavedSettings = @"lastWorldSettings";
     
     
     // Acceleration
-    worldSettings.acceleration = 0.0025;
+    worldSettings.acceleration = 0.0035;
     accelerationLabel.text = [NSString stringWithFormat:@"acceleration: %0.2f", worldSettings.acceleration];
     accelerationSlider.value = worldSettings.acceleration;
 
     
     // Gravity
-    worldSettings.gravity = 4;
+    worldSettings.gravity = 6;
     gravityLabel.text = [NSString stringWithFormat:@"gravity: %0.2f", worldSettings.gravity];
     gravitySlider.value = worldSettings.gravity;
 
@@ -255,7 +297,12 @@ const NSString *kSavedSettings = @"lastWorldSettings";
     groundRect =    CGRectMake(0, ground-20, screen.size.width, 20);
     leftWall =      CGRectMake(0, 20, 20, screen.size.height);
     rightWall =     CGRectMake(screen.size.width-20, 0, 20, screen.size.height);
-    topWall =       CGRectMake(0, 0, screen.size.width, 20);
+    topWall =       CGRectMake(0, -20, screen.size.width, 20);
+    
+    sceneRects[0] = groundRect;
+    sceneRects[1] = leftWall;
+    sceneRects[2] = rightWall;
+    sceneRects[3] = topWall;
     
     grounded = false;
     
@@ -263,7 +310,7 @@ const NSString *kSavedSettings = @"lastWorldSettings";
 
 - (void)setVarLabels {
     
-    UILabel *angleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0, 100, 50)];
+    angleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0, 100, 50)];
     [angleLabel setText:[NSString stringWithFormat:@"angle: %f", worldSettings.angle]];
     
     velocityYLabel = [[UILabel alloc] initWithFrame:CGRectMake(150,924, 150, 50)];
@@ -289,14 +336,21 @@ const NSString *kSavedSettings = @"lastWorldSettings";
 
 
 
+
+
+
+
 #pragma mark -
-#pragma Update
+#pragma mark Update
+
+// Deprecated update
 - (void)update {
     
     
     // Just for testing the other update method
     [self substituteUpdate];
     return;
+    
     
     double scale_x;
     double scale_y;
@@ -378,8 +432,10 @@ const NSString *kSavedSettings = @"lastWorldSettings";
     velocity_x = worldSettings.speed * scale_x;
     velocity_y = worldSettings.speed * scale_y + worldSettings.gravity;
     worldSettings.gravity += 0.001;
+    
+    
     // Check for ground collision
-    bool isGrounded = [self collisionTest];
+    [object setColliding: [self collisionTest]];
 
     
     // Upward user forces
@@ -389,7 +445,7 @@ const NSString *kSavedSettings = @"lastWorldSettings";
             worldSettings.speed += worldSettings.acceleration; 
         }
         
-    } else if ( !isGrounded ) {
+    } else if ( object.collision.isColliding ) {
         
         if ( worldSettings.speed > kSpeedConstant ) {
             worldSettings.speed -= worldSettings.acceleration; 
@@ -397,7 +453,7 @@ const NSString *kSavedSettings = @"lastWorldSettings";
 
     }
    
-    if ( isGrounded ) {
+    if ( object.collision.isColliding ) {
         if ( velocity_x > 0 ) velocity_x = 0;
         if ( velocity_y > 0 ) velocity_y = 0;
     }
@@ -412,57 +468,96 @@ const NSString *kSavedSettings = @"lastWorldSettings";
     velocityYLabel.text = [NSString stringWithFormat:@"velocity_y: %0.2f", velocity_y];
     [velocityYLabel sizeToFit];
     speedLabel.text = [NSString stringWithFormat:@"speed: %0.2f", worldSettings.speed];
+    [speedLabel sizeToFit];
 
     [self collisionTest];
 }
 
 
+
+
+
+
+#pragma mark -
+#pragma mark Distance Calculations
+- (double)distanceToPoint: (CGPoint)point {
+    
+
+    // Pythagorean theorum
+    float dx=object.frame.origin.x - point.x;
+    float dy=object.frame.origin.y - point.y;
+    float distance =   quickSqrt(  (dx*dx) + (dy*dy) );    
+        
+    return distance;
+}
+
+- (double)distanceToObject: (CGRect)rect {
+    
+    // Convienience method
+    return [self distanceToPoint:MARectGetCenter(rect)];
+    
+}
+
+
+
+
+
+
+#pragma mark -
+#pragma mark Collision Testing
 - (int)collisionTest {
     
-    // Ground
-    float dx=object.frame.origin.x - groundRect.origin.x;
-    float dy=object.frame.origin.y - groundRect.origin.y;
-    float distance = dx+dy;
+    // Should iterate through all objects in scene
     
-    // Left
-    float dxLeft=object.frame.origin.x - leftWall.origin.x;
-    float dyLeft=object.frame.origin.y - leftWall.origin.y;
-    float distanceLeft = dxLeft+dyLeft;
-   
-    // Right
-    float dxRight=object.frame.origin.x - rightWall.origin.x;
-    float dyRight=object.frame.origin.y - rightWall.origin.y;
-    float distanceRight = dxRight+dyRight;
+    int colliding = false;
+    
+    for (int i = 0; i < 10; i++) {
+        
+        if ( [self areaCollisionTest:object.frame obj2:sceneRects[i]] ) {
+            colliding = true;
+        }
 
-    // Top
-    float dxTop=object.frame.origin.x - topWall.origin.x;
-    float dyTop=object.frame.origin.y - topWall.origin.y;
-    float distanceTop = dxTop+dyTop;
-
-
-    if ( pow(distance, 2) < object.frame.size.height ) {
-        
-        return true;
-    } else if ( pow(distanceLeft, 2) < object.frame.size.height ) {
-        
-        return true;
-
-    } else if ( pow(distanceRight, 2) < object.frame.size.height ) {
-        
-        return true;
-        
-    } else if ( pow(distanceTop, 2) < object.frame.size.height ) {
-        
-        return true;
-        
     }
+    
+    
+    return colliding;
+    
+}
 
-
+- (int)areaCollisionTest: (CGRect)object1 obj2: (CGRect) object2 {
+    
+    // Object-to-object bounding-box collision detector:
+    
+    int left1, left2;
+    int right1, right2;
+    int top1, top2;
+    int bottom1, bottom2;
+    
+    left1 = object1.origin.x;
+    left2 = object2.origin.x;
+    right1 = object1.origin.x + object1.size.width;
+    right2 = object2.origin.x + object2.size.width;
+    top1 = object1.origin.y;
+    top2 = object2.origin.y;
+    bottom1 = object1.origin.y + object1.size.height;
+    bottom2 = object2.origin.y + object2.size.height;
+    
+    if (bottom1 < top2) return(0);
+    if (top1 > bottom2) return(0);
+    
+    if (right1 < left2) return(0);
+    if (left1 > right2) return(0);
+    
+    // Just log once.
+    if ( !object.collision.isColliding ) {
+        LogMe(@"Collision!");
+    }
+    return(1);
         
     
-    
-    return false;
 }
+
+
 
 
 

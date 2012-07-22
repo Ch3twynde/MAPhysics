@@ -26,6 +26,7 @@ typedef struct WorldSettings {
     
     double angle;
     double speed;
+    double realSpeed;
     double acceleration;
     double gravity;
     double gravityROC;

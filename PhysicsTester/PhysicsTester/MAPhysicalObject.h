@@ -13,6 +13,8 @@
 @interface MAPhysicalObject : UIImageView
 
     
+@property CGPoint deltaPosition;
+@property CGPoint lastPosition;
 @property struct Collision collision;
 
 

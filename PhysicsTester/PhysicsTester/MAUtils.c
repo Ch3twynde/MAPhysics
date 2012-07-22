@@ -32,4 +32,18 @@ CGPoint MARectGetCenter (CGRect rect) {
     return CGPointMake(rect.origin.x + rect.size.width/2, rect.origin.y + rect.size.height/2);
 }
 
+CGPoint MASubtractPoints (CGPoint point1,
+                          CGPoint point2) {
+    
+    // Convenience for subtracting points
+    return CGPointMake(point1.x - point2.x, point1.y - point2.y);
+}
+
+
+double MADividePointByTime (CGPoint point,
+                            NSTimeInterval time) {
+    
+    return (point.x + point.y) / time;
+}
+
 #endif

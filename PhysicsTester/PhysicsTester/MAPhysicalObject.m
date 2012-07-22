@@ -10,7 +10,7 @@
 
 @implementation MAPhysicalObject
 
-@synthesize collision;
+@synthesize collision, lastPosition, deltaPosition;
 
 - (id)initWithFrame:(CGRect)frame
 {

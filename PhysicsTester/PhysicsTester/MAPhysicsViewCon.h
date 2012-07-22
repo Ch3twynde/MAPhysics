@@ -17,12 +17,14 @@
 
 
     
-@property (strong) IBOutlet UILabel *velocityYLabel, *accelerationLabel, *speedLabel, *gravityLabel, *elasticityLabel, *angleLabel;
-@property (strong) IBOutlet UISlider *accelerationSlider, *gravitySlider, *elasticitySlider, *angleSlider, *speedSlider;
+@property (strong) IBOutlet UILabel *velocityYLabel, *accelerationLabel, *speedLabel, *gravityLabel, *elasticityLabel, *angleLabel, *realSpeedLabel;
+@property (strong) IBOutlet UISlider *accelerationSlider, *gravitySlider, *elasticitySlider, *angleSlider, *speedSlider, *realSpeedSlider;
 @property (strong) IBOutlet UIButton *playPause;
-@property (strong) IBOutlet UITextField *gravityROCTextField;
+@property (strong) IBOutlet UITextField *gravityROCTextField, *baseAccelerationTextField;
 
 - (int)loadLastValues;
+- (void)setup;
+
 
 
 

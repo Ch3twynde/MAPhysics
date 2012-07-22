@@ -49,11 +49,18 @@
     
 
     displayLink = [CADisplayLink displayLinkWithTarget:theViewController selector:@selector(update)];
+    
+    // Grab reference to display link before it
+    // starts firing
+    [theViewController setup];
+    
     [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     
     
     return YES;
 }
+
+
 
 
 - (void)applicationWillResignActive:(UIApplication *)application

@@ -60,6 +60,12 @@ extern const NSString *kSavedSettings;
     
     // Touches
     int fingerDown, wasFingerDown;
+    CGPoint touchStartLocation, touchLastLocation, touchDeltaPosition; /* Delta position should really be
+                                                                        * in like a category or subclass that
+                                                                        * we swizzle out early on.
+                                                                        *
+                                                                        */
+    
 
     // Other labels
     UILabel *speedLabelPlain;
@@ -289,11 +295,22 @@ const NSString *kSavedSettings = @"lastWorldSettings";
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
     
-    touchTimeStart = [NSDate date];
-//    worldSettings.acceleration = kAccelerationConstant;
+    touchTimeStart = [NSDate date]; // I reserved this 
+    touchStartLocation = [[touches anyObject] locationInView:self.view];
+    
+    
     fingerDown = true;
-    wasFingerDown = false;
-    worldSettings.falling = false;
+    
+    wasFingerDown = false; // not used
+    worldSettings.falling = false; // also not used
+}
+
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    CGPoint thisTouchPoint =  [[touches anyObject] locationInView:self.view];
+    touchDeltaPosition = MASubtractPoints(touchLastLocation, thisTouchPoint);
+    touchLastLocation = thisTouchPoint;
 }
 
 
@@ -477,6 +494,14 @@ const NSString *kSavedSettings = @"lastWorldSettings";
     object.lastPosition = object.frame.origin;
     
     
+    // Adjust angle based on touch movement
+    // left or right
+    // Cap it at 30°
+    if ( worldSettings.angle < 300 && worldSettings.angle > 240 ) {
+        worldSettings.angle += touchDeltaPosition.x;
+    }
+    
+    
     // Angle to travel calculation
     double scale_x;
     double scale_y;
@@ -563,11 +588,25 @@ const NSString *kSavedSettings = @"lastWorldSettings";
                               object.frame.size.height);
         
     
+    
+    /* Update slider values
+     * I should probably abstract this out a bit.
+     */
+    
+    
+    
+    // bottom labels
     velocityYLabel.text = [NSString stringWithFormat:@"velocity_y: %0.2f", velocity_y];
     [velocityYLabel sizeToFit];
     speedLabelPlain.text = [NSString stringWithFormat:@"speed: %0.2f", worldSettings.speed];
     [speedLabelPlain sizeToFit];
     
+    
+    // Angle
+    angleLabel.text = [NSString stringWithFormat:@"Angle: %0.2f", worldSettings.angle];
+    angleSlider.value = worldSettings.angle;
+
+    // Speed
     speedLabel.text = speedLabelPlain.text;
     speedSlider.value = worldSettings.speed;
     

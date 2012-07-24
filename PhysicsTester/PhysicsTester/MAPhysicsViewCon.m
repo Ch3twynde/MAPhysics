@@ -12,6 +12,7 @@
 #import "MASliderView.h"
 #import "MAAppDelegate.h"
 #import "MAUtils.c"
+#import "MAColoredLogger.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -311,6 +312,8 @@ const NSString *kSavedSettings = @"lastWorldSettings";
     CGPoint thisTouchPoint =  [[touches anyObject] locationInView:self.view];
     touchDeltaPosition = MASubtractPoints(touchLastLocation, thisTouchPoint);
     touchLastLocation = thisTouchPoint;
+    
+
 }
 
 
@@ -409,9 +412,12 @@ const NSString *kSavedSettings = @"lastWorldSettings";
         if ( currentTextField.tag == 0 ) {
             // Gravity ROC
             worldSettings.gravityROC = currentTextField.text.floatValue;
+            LogMeColored(BLUE, @"gravityROC: %f", worldSettings.gravityROC);
         } else if ( currentTextField.tag == 1 ) {
             // Acceleration base
             worldSettings.acceleration = currentTextField.text.floatValue;
+            LogMeColored(BLUE, @"acceleration: %f", worldSettings.acceleration);
+
         }
     
     }
@@ -497,10 +503,10 @@ const NSString *kSavedSettings = @"lastWorldSettings";
     // Adjust angle based on touch movement
     // left or right
     // Cap it at 30°
-    if ( worldSettings.angle < 300 && worldSettings.angle > 240 ) {
-        worldSettings.angle += touchDeltaPosition.x;
+    if ( worldSettings.angle < 360 && worldSettings.angle > 200 ) {
+        worldSettings.angle -= touchDeltaPosition.x;
     }
-    
+
     
     // Angle to travel calculation
     double scale_x;

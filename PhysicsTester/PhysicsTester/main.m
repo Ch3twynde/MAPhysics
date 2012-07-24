@@ -13,6 +13,9 @@
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
+        
+        setenv("XcodeColors", "YES", 0); // Enables XcodeColors (you obviously have to install it too)
+
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([MAAppDelegate class]));
     }
 }

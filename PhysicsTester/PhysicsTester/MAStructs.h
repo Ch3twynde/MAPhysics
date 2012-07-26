@@ -12,10 +12,12 @@
 
 typedef struct Collision {
     
+    
     double  objectMass;
     double  objectAngle;
     double  objectSpeed;
     float   objectElasticity;
+    int     bouncing;
     int     isColliding;
     const char   *rectName;
     
@@ -33,6 +35,7 @@ typedef struct WorldSettings {
     int moving;
     int falling;
     float elasticity;
+
     
     
 } WorldSettings;

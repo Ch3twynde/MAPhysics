@@ -574,12 +574,28 @@ const NSString *kSavedSettings = @"lastWorldSettings";
                 velocity_y = 0;
                 
             } else {
-                worldSettings.speed = kSpeedConstant;
-                worldSettings.gravity = kGravityConstant;
-                worldSettings.angle = -270;
+                
+                if ( object.collision.bouncing ) {
+                    [object setBouncing:false];
+                    worldSettings.speed = kSpeedConstant;
+                    worldSettings.gravity = kGravityConstant;
+                    worldSettings.angle = worldSettings.angle - 180;
+                    
+                    scale_x = cos(DegreesToRadians(worldSettings.angle));
+                    scale_y = sin(DegreesToRadians(worldSettings.angle));
+                    
+                    velocity_x = worldSettings.speed * scale_x;
+                    velocity_y = worldSettings.speed * scale_y;
+
+                }
             }
+         
+        } else {
+            velocity_x = 0;
+            velocity_y = 0;
             
         }
+
         
         
     } else {
@@ -734,6 +750,7 @@ const NSString *kSavedSettings = @"lastWorldSettings";
     
     // Just log once.
     if ( !object.collision.isColliding ) {
+        [object setBouncing:true];
         LogMe(@"Collision!");
     }
     return(1);

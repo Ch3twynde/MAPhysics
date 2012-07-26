@@ -20,6 +20,7 @@
 
 - (void)setColliding: (int)_isColliding;
 - (void)setRectName: (NSString *)name;
+- (void)setBouncing: (int)_isBouncing;
 
 
 

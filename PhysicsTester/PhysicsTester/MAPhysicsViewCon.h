@@ -10,6 +10,7 @@
 
 #define PI 3.14159
 #define DegreesToRadians(x) x * (PI / 180)
+#define MirroredAngle(x) x - 180
 #define LogMe(fmt, ...) NSLog((@"%s [line: %d] " fmt ), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__) 
 
 

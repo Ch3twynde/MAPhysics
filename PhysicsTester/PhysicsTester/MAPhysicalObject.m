@@ -26,6 +26,10 @@
     collision.isColliding = _isColliding;
 }
 
+- (void)setBouncing: (int)_isBouncing {
+    collision.bouncing = _isBouncing;
+}
+
 - (void)setRectName: (NSString *)name {
     
     collision.rectName = [name cStringUsingEncoding:NSUTF8StringEncoding];

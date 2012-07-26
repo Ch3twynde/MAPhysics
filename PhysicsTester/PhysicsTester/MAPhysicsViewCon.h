@@ -21,7 +21,7 @@
 @property (strong) IBOutlet UILabel *velocityYLabel, *accelerationLabel, *speedLabel, *gravityLabel, *elasticityLabel, *angleLabel, *realSpeedLabel;
 @property (strong) IBOutlet UISlider *accelerationSlider, *gravitySlider, *elasticitySlider, *angleSlider, *speedSlider, *realSpeedSlider;
 @property (strong) IBOutlet UIButton *playPause;
-@property (strong) IBOutlet UITextField *gravityROCTextField, *baseAccelerationTextField;
+@property (strong) IBOutlet UITextField *gravityROCTextField, *baseAccelerationTextField, *baseGravityTextField;
 
 - (int)loadLastValues;
 - (void)setup;

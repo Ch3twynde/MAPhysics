@@ -22,6 +22,7 @@
 		626D496515B7AD80005D5602 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 626D496315B7AD80005D5602 /* InfoPlist.strings */; };
 		626D496815B7AD80005D5602 /* PhysicsTesterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 626D496715B7AD80005D5602 /* PhysicsTesterTests.m */; };
 		626D497415B7AF49005D5602 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626D497315B7AF49005D5602 /* QuartzCore.framework */; };
+		62788CB115C0E33A005F6C06 /* MAControlPanelViewCon.m in Sources */ = {isa = PBXBuildFile; fileRef = 62788CB015C0E33A005F6C06 /* MAControlPanelViewCon.m */; };
 		7D5BDD3115BB530E004D0DE3 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D5BDD3015BB530E004D0DE3 /* CoreFoundation.framework */; };
 		7D5BDD3415BB539C004D0DE3 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D5BDD3315BB539C004D0DE3 /* CoreMedia.framework */; };
 		7D5BDD3715BBA5DD004D0DE3 /* MAPhysicalObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BDD3615BBA5DD004D0DE3 /* MAPhysicalObject.m */; };
@@ -62,6 +63,9 @@
 		626D496615B7AD80005D5602 /* PhysicsTesterTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhysicsTesterTests.h; sourceTree = "<group>"; };
 		626D496715B7AD80005D5602 /* PhysicsTesterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhysicsTesterTests.m; sourceTree = "<group>"; };
 		626D497315B7AF49005D5602 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		62788CAF15C0E33A005F6C06 /* MAControlPanelViewCon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAControlPanelViewCon.h; sourceTree = "<group>"; };
+		62788CB015C0E33A005F6C06 /* MAControlPanelViewCon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAControlPanelViewCon.m; sourceTree = "<group>"; };
+		62EC8F8815C1915800E887BD /* Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logging.h; sourceTree = "<group>"; };
 		7D5BDD3015BB530E004D0DE3 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		7D5BDD3315BB539C004D0DE3 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		7D5BDD3515BBA5DD004D0DE3 /* MAPhysicalObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPhysicalObject.h; sourceTree = "<group>"; };
@@ -149,6 +153,7 @@
 				626D494E15B7AD80005D5602 /* MAAppDelegate.m */,
 				7D8F8E7615B8B38100F1B5E3 /* MAPhysicsViewCon.h */,
 				7D8F8E7715B8B38100F1B5E3 /* MAPhysicsViewCon.m */,
+				62788CB315C0E348005F6C06 /* Control Panel */,
 				7D5BDD3515BBA5DD004D0DE3 /* MAPhysicalObject.h */,
 				7D5BDD3615BBA5DD004D0DE3 /* MAPhysicalObject.m */,
 				7DB8624E15BBE866000C91FF /* MAUtils.c */,
@@ -193,9 +198,27 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		62788CB315C0E348005F6C06 /* Control Panel */ = {
+			isa = PBXGroup;
+			children = (
+				62788CAF15C0E33A005F6C06 /* MAControlPanelViewCon.h */,
+				62788CB015C0E33A005F6C06 /* MAControlPanelViewCon.m */,
+			);
+			name = "Control Panel";
+			sourceTree = "<group>";
+		};
+		62EC8F8715C1915800E887BD /* Logging */ = {
+			isa = PBXGroup;
+			children = (
+				62EC8F8815C1915800E887BD /* Logging.h */,
+			);
+			path = Logging;
+			sourceTree = "<group>";
+		};
 		7D75436115BDE847003C82AE /* Logging */ = {
 			isa = PBXGroup;
 			children = (
+				62EC8F8715C1915800E887BD /* Logging */,
 				7DCEA39D15BF6862008DA917 /* MAColoredLogger.h */,
 				7DCEA39E15BF6862008DA917 /* MAColoredLogger.m */,
 			);
@@ -318,6 +341,7 @@
 				7D5BDD3715BBA5DD004D0DE3 /* MAPhysicalObject.m in Sources */,
 				7D5BDD3C15BBD7DF004D0DE3 /* MAArrayChecker.m in Sources */,
 				7DCEA39F15BF6862008DA917 /* MAColoredLogger.m in Sources */,
+				62788CB115C0E33A005F6C06 /* MAControlPanelViewCon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,6 +437,11 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PhysicsTester/PhysicsTester-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"MA_LOG_TRACE=0",
+				);
 				INFOPLIST_FILE = "PhysicsTester/PhysicsTester-Info.plist";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";

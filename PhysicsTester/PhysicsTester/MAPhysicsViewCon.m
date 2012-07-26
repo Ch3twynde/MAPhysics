@@ -9,7 +9,7 @@
 #import "MAPhysicsViewCon.h"
 
 #import "MAPhysicalObject.h"
-#import "MASliderView.h"
+#import "MAControlPanelViewCon.h"
 #import "MAAppDelegate.h"
 #import "MAUtils.c"
 #import "MAColoredLogger.h"
@@ -59,6 +59,11 @@ extern const NSString *kSavedSettings;
     // Screen
     CGRect screen;
     
+    
+    // Control Panel
+    MAControlPanelViewCon *controlPanelViewCon;
+    
+    
     // Touches
     int fingerDown, wasFingerDown;
     CGPoint touchStartLocation, touchLastLocation, touchDeltaPosition; /* Delta position should really be
@@ -96,6 +101,7 @@ const NSString *kSavedSettings = @"lastWorldSettings";
 @synthesize object, velocityYLabel, accelerationLabel, speedLabel, gravityLabel, elasticityLabel, angleLabel;
 @synthesize accelerationSlider, gravitySlider, elasticitySlider, angleSlider, speedSlider;
 @synthesize playPause, gravityROCTextField, baseAccelerationTextField, realSpeedLabel, realSpeedSlider;
+@synthesize baseGravityTextField;
 
 
 
@@ -233,7 +239,7 @@ const NSString *kSavedSettings = @"lastWorldSettings";
     
     
     // Angle
-    worldSettings.angle = 270;
+    worldSettings.angle = 90;
     
     // Acceleration
     worldSettings.acceleration = 0.000135;
@@ -243,6 +249,9 @@ const NSString *kSavedSettings = @"lastWorldSettings";
     
     // Gravity ROC (Rate Of Change)
     worldSettings.gravityROC = 1.0255;
+    
+    // Gravity base (non-incremented)
+    worldSettings.gravityBase = worldSettings.gravity;
     
     // Elasticity
     worldSettings.elasticity = 2.5;
@@ -331,25 +340,36 @@ const NSString *kSavedSettings = @"lastWorldSettings";
 
 
 
+
 #pragma mark -
 #pragma mark Controls
 - (void)addSliderView {
     
-    //MASliderView *sliderView = [[MASliderView alloc] initWithNibName:@"ValueSliders" bundle:[NSBundle mainBundle]];
+    controlPanelViewCon = [[MAControlPanelViewCon alloc] init];
+    
     
     NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ValueSliders" owner:self options:nil];
     UIView *sliderView = [nib objectAtIndex:0];
-    sliderView.frame = CGRectMake(768-sliderView.frame.size.width, 
+    sliderView.frame = CGRectMake(768-15,//sliderView.frame.size.width, 
                                   0, 
                                   sliderView.frame.size.width, 
                                   sliderView.frame.size.height);
     
     playPause.selected = true;
     
-    [self.view addSubview:sliderView];
+    controlPanelViewCon.view = sliderView;
+    [self.view addSubview:controlPanelViewCon.view];
     
 }
 
+
+- (IBAction)dismissControlPanel:(id)sender {
+    
+    if ( controlPanelViewCon ) {
+        [controlPanelViewCon dismissControlPanel];
+    }
+    
+}
 
 
 - (IBAction)playPause:(id)sender {
@@ -418,6 +438,10 @@ const NSString *kSavedSettings = @"lastWorldSettings";
             worldSettings.acceleration = currentTextField.text.floatValue;
             LogMeColored(BLUE, @"acceleration: %f", worldSettings.acceleration);
 
+        } else if ( currentTextField.tag == 2 ) {
+            // Gravity base
+            worldSettings.gravityBase = currentTextField.text.floatValue;
+            LogMeColored(BLUE, @"gravity base: %f", worldSettings.gravityBase);
         }
     
     }
@@ -503,7 +527,7 @@ const NSString *kSavedSettings = @"lastWorldSettings";
     // Adjust angle based on touch movement
     // left or right
     // Cap it at 30°
-    if ( worldSettings.angle < 360 && worldSettings.angle > 200 ) {
+    if ( worldSettings.angle < 360 && worldSettings.angle > 220 ) {
         worldSettings.angle -= touchDeltaPosition.x;
     }
 
@@ -520,6 +544,7 @@ const NSString *kSavedSettings = @"lastWorldSettings";
     
     velocity_x = worldSettings.speed * scale_x;
     velocity_y = worldSettings.speed * scale_y;
+    velocity_y += worldSettings.gravity;
     
     
     
@@ -530,7 +555,7 @@ const NSString *kSavedSettings = @"lastWorldSettings";
     // Upward user forces
     if ( fingerDown ) { 
 
-        if ( worldSettings.angle != 270 ) worldSettings.angle = 270;
+        if ( worldSettings.angle != 90 ) worldSettings.angle = 90;
 
         // Increase speed
         if ( worldSettings.speed < kMaxSpeedConstant ) {
@@ -559,51 +584,61 @@ const NSString *kSavedSettings = @"lastWorldSettings";
 
 
     }
-   
+    
     // Get off of a stuck floor
     if ( object.collision.isColliding ) {
         
         // If no finger down, stop.
         if ( !fingerDown ) {
             
-            // Check rect tag name
-            if ( [[NSString stringWithCString:object.collision.rectName encoding:NSUTF8StringEncoding] isEqualToString:@"groundRect"] ) {  
+
+            
+            if ( object.collision.bouncing ) {
                 
-                // Colliding with ground will just stop (for now).
-                velocity_x = 0;
+                LogTrace(@"Mark2!");
+                [object setBouncing:false];
+                worldSettings.speed *= 0.5;//kSpeedConstant;
+                worldSettings.gravity = baseGravityTextField.text.floatValue;
+                worldSettings.angle = worldSettings.angle - 180;
+                
+                scale_x = cos(DegreesToRadians(worldSettings.angle));
+                scale_y = sin(DegreesToRadians(worldSettings.angle));
+                
+                velocity_x = worldSettings.speed * scale_x;
+                velocity_y = worldSettings.speed * scale_y;
+                
+             } else if ( [[NSString stringWithCString:object.collision.rectName encoding:NSUTF8StringEncoding] isEqualToString:@"groundRect"] ) {  
+                LogTrace(@"Mark3!");
                 velocity_y = 0;
+                
+            }
+
+            
+        } else {
+            
+            if ( [[NSString stringWithCString:object.collision.rectName encoding:NSUTF8StringEncoding] isEqualToString:@"groundRect"] ) {  
+                LogTrace(@"Mark5!");
+                velocity_y += worldSettings.speed * scale_y * 2;
                 
             } else {
                 
-                if ( object.collision.bouncing ) {
-                    [object setBouncing:false];
-                    worldSettings.speed = kSpeedConstant;
-                    worldSettings.gravity = kGravityConstant;
-                    worldSettings.angle = worldSettings.angle - 180;
-                    
-                    scale_x = cos(DegreesToRadians(worldSettings.angle));
-                    scale_y = sin(DegreesToRadians(worldSettings.angle));
-                    
-                    velocity_x = worldSettings.speed * scale_x;
-                    velocity_y = worldSettings.speed * scale_y;
-
-                }
+                LogTrace(@"Mark1!");
+                // Finger down but against a wall
+                velocity_x = 0;
+                velocity_y = 0;
             }
-         
-        } else {
-            velocity_x = 0;
-            velocity_y = 0;
-            
-        }
-
+        }   
         
+        
+         
         
     } else {
         
-        velocity_y += worldSettings.gravity;
+        LogTrace(@"Mark4!");
     }
-
-        
+    
+    
+    LogTrace(@"velocity_y: %f", velocity_y);
     object.frame = CGRectMake(object.frame.origin.x + velocity_x,
                               object.frame.origin.y + velocity_y,
                               object.frame.size.width,
@@ -614,9 +649,6 @@ const NSString *kSavedSettings = @"lastWorldSettings";
     /* Update slider values
      * I should probably abstract this out a bit.
      */
-    
-    
-    
     // bottom labels
     velocityYLabel.text = [NSString stringWithFormat:@"velocity_y: %0.2f", velocity_y];
     [velocityYLabel sizeToFit];

@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Logging.h"
 
 #define XCODE_COLORS_ESCAPE_MAC @"\033["
 #define XCODE_COLORS_ESCAPE_IOS @"\xC2\xA0["
+
+
 
 //#if ( !TARGET_IPHONE_SIMULATOR )
 //#define XCODE_COLORS_ESCAPE  XCODE_COLORS_ESCAPE_IOS
